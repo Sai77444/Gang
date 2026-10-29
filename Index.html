@@ -1,0 +1,450 @@
+
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>पाच नमुने - एकच झवाडा ग्रुप 😂</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #100d19;
+    color: white;
+    text-align: center;
+    min-height: 100vh;
+    padding: 35px 15px;
+}
+
+header {
+    margin-bottom: 45px;
+}
+
+.small-title {
+    color: #c4a2ff;
+    letter-spacing: 2px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: clamp(30px, 5vw, 48px);
+    margin-bottom: 15px;
+}
+
+h1 span {
+    display: block;
+    color: #c49aff;
+    margin-top: 8px;
+}
+
+.subtitle {
+    color: #c4bdcf;
+    font-size: 15px;
+    margin-top: 15px;
+}
+
+.friends {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.friend {
+    min-width: 0;
+}
+
+/* Friendship Cards */
+
+.card {
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 10px;
+    border: 1px solid #47345e;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #291d3d, #171321);
+    cursor: pointer;
+    transition: transform 0.35s, box-shadow 0.35s,
+                border-color 0.35s;
+}
+
+.card:hover {
+    transform: translateY(-9px);
+    box-shadow: 0 0 28px #9560d955;
+    border-color: #c49aff;
+}
+
+.card-icon {
+    font-size: 54px;
+    color: #c49aff;
+    margin-bottom: 18px;
+    transition: transform 0.4s, color 0.4s;
+}
+
+.card:hover .card-icon {
+    transform: scale(1.2) rotate(-10deg);
+    color: #ff9cdb;
+}
+
+.card h2 {
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #c8badc;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Instagram Logo */
+
+.insta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    margin-top: 15px;
+    border-radius: 50%;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+    text-decoration: none;
+    background: linear-gradient(
+        45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5
+    );
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.insta:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 18px #d6297680;
+}
+
+/* Hide Checkbox */
+
+.popup-toggle {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Photo Popup */
+
+.popup {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(8, 6, 16, 0.94);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s, visibility 0.4s;
+}
+
+/* Click Outside to Close */
+
+.close-overlay {
+    position: absolute;
+    inset: 0;
+    cursor: default;
+}
+
+/* Popup Content */
+
+.popup-box {
+    position: relative;
+    z-index: 1;
+    width: min(380px, 100%);
+    padding: 20px;
+    border: 1px solid #a67be8;
+    border-radius: 22px;
+    background: linear-gradient(145deg, #291d3d, #171321);
+    box-shadow: 0 0 45px #9560d955;
+    transform: scale(0.5) rotate(-7deg);
+    transition: transform 0.5s cubic-bezier(.2,.8,.2,1);
+}
+
+.popup-box img {
+    display: block;
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    border-radius: 14px;
+    background: #30243f;
+}
+
+.popup-box h2 {
+    margin-top: 18px;
+    color: #d3b6ff;
+    font-size: 24px;
+}
+
+.popup-box p {
+    color: #ddd0eb;
+    margin-top: 12px;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* Close Button */
+
+.close {
+    position: absolute;
+    top: 7px;
+    right: 12px;
+    z-index: 3;
+    width: 38px;
+    height: 38px;
+    line-height: 36px;
+    border-radius: 50%;
+    color: white;
+    font-size: 30px;
+    background: #100d19cc;
+    cursor: pointer;
+}
+
+/* Show Selected Photo */
+
+.popup-toggle:checked + .popup {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.popup-toggle:checked + .popup .popup-box {
+    transform: scale(1) rotate(0);
+}
+
+/* Footer */
+
+.footer {
+    margin-top: 45px;
+    color: #bba5d8;
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* Responsive Design */
+
+@media (max-width: 950px) {
+    .friends {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 30px 12px;
+    }
+
+    .friends {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .card {
+        min-height: 190px;
+        padding: 15px 8px;
+    }
+
+    .card-icon {
+        font-size: 45px;
+    }
+
+    .popup-box img {
+        height: 300px;
+    }
+}
+
+@media (max-width: 340px) {
+    .friends {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <p class="small-title">हरामखोरांची संसद 💀</p>
+    <h1>पाच नमुने <span>एकच झवाडा ग्रुप 😂</span></h1>
+    <p class="subtitle">
+        हरामखोर आहेत सगळे, पण एकमेकांसाठी जीव देणारे! ❤️
+    </p>
+</header>
+
+<!-- नमुना नंबर १ : सोनू -->
+
+<input type="checkbox" id="p1" class="popup-toggle">
+<div class="popup">
+    <label for="p1" class="close-overlay"></label>
+    <div class="popup-box">
+        <label for="p1" class="close">&times;</label>
+        <img src="WhatsApp Image 2026-10-29 at 9.35.24 PM (1) copy.jpeg" alt="सोनू">
+        <h2>Sonu ❤️</h2>
+        <p>मादरचोद नमुना, पण आपला लय भारी! 😂</p>
+        <a class="insta"
+           href="https://www.instagram.com/omkar_waghchaure_________?cplk=eG13ZTdhMDhmMXJ4"
+           target="_blank" rel="noopener"
+           aria-label="सोनूचे Instagram">◎</a>
+    </div>
+</div>
+
+<!-- नमुना नंबर २ : नितीन -->
+
+<input type="checkbox" id="p2" class="popup-toggle">
+<div class="popup">
+    <label for="p2" class="close-overlay"></label>
+    <div class="popup-box">
+        <label for="p2" class="close">&times;</label>
+        <img src="WhatsApp Image 2026-10-29 at 9.35.24 PM.jpeg" alt="नितीन">
+        <h2>Nitin 💜</h2>
+        <p>झवाड्या कुठला, पण जीव लावणारा! 🤣</p>
+        <a class="insta"
+           href="https://www.instagram.com/anandyadv_05?mdxt=MWFrdnJpMHN6NWhsdA=="
+           target="_blank" rel="noopener"
+           aria-label="नितीनचे Instagram">◎</a>
+    </div>
+</div>
+
+<!-- नमुना नंबर ३ : सॅंडी -->
+
+<input type="checkbox" id="p3" class="popup-toggle">
+<div class="popup">
+    <label for="p3" class="close-overlay"></label>
+    <div class="popup-box">
+        <label for="p3" class="close">&times;</label>
+        <img src="WhatsApp Image 2026-10-29 at 9.35.23 PM (1).jpeg" alt="सॅंडी">
+        <h2>Sandy✨</h2>
+        <p>हरामखोर आहे, पण आपला एकदम खास आहे! 💀</p>
+        <a class="insta"
+           href="https://www.instagram.com/sandy_ahire_08?dlrf=MWFyMXc0ZmZmY2Vqbg=="
+           target="_blank" rel="noopener"
+           aria-label="सॅंडीचे Instagram">◎</a>
+    </div>
+</div>
+
+<!-- नमुना नंबर ४ : रोहन -->
+
+<input type="checkbox" id="p4" class="popup-toggle">
+<div class="popup">
+    <label for="p4" class="close-overlay"></label>
+    <div class="popup-box">
+        <label for="p4" class="close">&times;</label>
+        <img src="WhatsApp Image 2026-10-29 at 9.35.23 PM.jpeg" alt="रोहन">
+        <h2>Rohan 🌟</h2>
+        <p>भडवा नंबर वन, पण आपला माणूस एक नंबर! 😂</p>
+        <a class="insta"
+           href="https://www.instagram.com/_rohan_ugale_03?psln=bW5wZ2NmbXkzZjlt"
+           target="_blank" rel="noopener"
+           aria-label="रोहनचे Instagram">◎</a>
+    </div>
+</div>
+
+<!-- नमुना नंबर ५ : साई -->
+
+<input type="checkbox" id="p5" class="popup-toggle">
+<div class="popup">
+    <label for="p5" class="close-overlay"></label>
+    <div class="popup-box">
+        <label for="p5" class="close">&times;</label>
+        <img src="WhatsApp Image 2026-10-29 at 9.35.46 PM.jpeg" alt="साई">
+        <h2>Sai🫂</h2>
+        <p>भडवा पण भावासारखा! ❤️‍🔥</p>
+        <a class="insta"
+           href="https://www.instagram.com/saiborse_03_?srtk=NTIxamZrNnllamZv"
+           target="_blank" rel="noopener"
+           aria-label="साईचे Instagram">◎</a>
+    </div>
+</div>
+
+<!-- FIVE FRIENDSHIP CARDS -->
+
+<main class="friends">
+
+    <div class="friend">
+        <label for="p1" class="card">
+            <div class="card-icon">♡</div>
+            <h2>नमुना नंबर १</h2>
+           
+        </label>
+        <a class="insta"
+           href="https://www.instagram.com/omkar_waghchaure_________?cplk=eG13ZTdhMDhmMXJ4"
+           target="_blank" rel="noopener"
+           aria-label="नमुना १ Instagram">◎</a>
+    </div>
+
+    <div class="friend">
+        <label for="p2" class="card">
+            <div class="card-icon">♡</div>
+            <h2>नमुना नंबर २</h2>
+           
+        </label>
+        <a class="insta"
+           href="https://www.instagram.com/anandyadv_05?mdxt=MWFrdnJpMHN6NWhsdA=="
+           target="_blank" rel="noopener"
+           aria-label="नमुना २ Instagram">◎</a>
+    </div>
+
+    <div class="friend">
+        <label for="p3" class="card">
+            <div class="card-icon">♡</div>
+            <h2>नमुना नंबर ३</h2>
+            
+        </label>
+        <a class="insta"
+           href="https://www.instagram.com/sandy_ahire_08?dlrf=MWFyMXc0ZmZmY2Vqbg=="
+           target="_blank" rel="noopener"
+           aria-label="नमुना ३ Instagram">◎</a>
+    </div>
+
+    <div class="friend">
+        <label for="p4" class="card">
+            <div class="card-icon">♡</div>
+            <h2>नमुना नंबर ४</h2>
+       
+        </label>
+        <a class="insta"
+           href="https://www.instagram.com/_rohan_ugale_03?psln=bW5wZ2NmbXkzZjlt"
+           target="_blank" rel="noopener"
+           aria-label="नमुना ४ Instagram">◎</a>
+    </div>
+
+    <div class="friend">
+        <label for="p5" class="card">
+            <div class="card-icon">♡</div>
+            <h2>नमुना नंबर ५</h2>
+            <p></p>
+        </label>
+        <a class="insta"
+           href="https://www.instagram.com/saiborse_03_?srtk=NTIxamZrNnllamZv"
+           target="_blank" rel="noopener"
+           aria-label="नमुना ५ Instagram">◎</a>
+    </div>
+
+</main>
+
+<p class="footer">
+    पाच हरामखोर, पण एकमेकांसाठी जीव देणारे! ❤️‍🔥
+</p>
+
+</body>
+</html>
